@@ -1,5 +1,6 @@
 const { ObjectID } = require('mongodb')
-const { isMongoId, isNumeric, isDate } = require('validator')
+const { isMongoId, isNumeric } = require('validator')
+const moment = require('moment')
 const mongoStore = require('./mongo-store')
 
 const error = require('./api-error')
@@ -21,11 +22,13 @@ module.exports = {
     })
   },
   create(obj, cb) {
-    if (!isNumeric(obj.rate)) return cb(error({}, 'rate should be a number', '', 500))
-    if (!isDate(obj.time)) return cb(error({}, 'time should be a date', '', 500))
-    collection.insertOne(obj, (err, res) => {
+    if (!isNumeric(String(obj.rate)) && !Number.isNaN(obj.rate)) return cb(error({}, 'rate should be a number', '', 500))
+
+    if (!moment(obj.time).isValid()) return cb(error({}, 'time should be an ISO formatted date', '', 500))
+
+    collection.insertOne({ rate: obj.rate, time: new Date(obj.time).toISOString() }, (err, res) => {
       if (err) return cb(error(err, 'Couldn\'t create this record', '', 500))
-      return cb(null, res)
+      return cb(null, res.ops[0])
     })
   }
 }

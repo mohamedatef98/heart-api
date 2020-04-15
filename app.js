@@ -5,8 +5,12 @@ const MongoClient = require('mongodb').MongoClient
 const mongoStore = require('./mongo-store')
 
 const express = require('express')
+const bodyParser = require('body-parser')
 
 const app = express()
+
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 const jsonFormatter = require('./json-formatter')
 
@@ -28,6 +32,7 @@ MongoClient.connect(process.env.MONGO_URL, function (err, client) {
   })
 
   app.post('/heart', (req, res) => {
+    console.log(req.body)
     const obj = req.body
     Heart.create(obj, (err, doc) => {
       if (err) return jsonFormatter(res, { err })

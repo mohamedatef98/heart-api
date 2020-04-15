@@ -7,6 +7,4 @@ class APIError {
   }
 }
 
-module.exports = {
-  error: (err, message, details, status) => new APIError(err, message, details, status)
-}
+module.exports = (err, message, details, status) => new APIError(err, message, details, status)
