@@ -9,9 +9,12 @@
     "mongodb": "^3.5.6",
     "validator": "^13.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app"
   },
   "author": "mohamedatef98",
   "license": "ISC"
