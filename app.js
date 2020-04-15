@@ -42,6 +42,8 @@ MongoClient.connect(process.env.MONGO_URL, function (err, client) {
       return jsonFormatter(res, { data: doc })
     })
   })
+
+  app.get('/', (req, res) => jsonFormatter(res, { message: 'invalid route, only valid routes are get,post/heart get/heart/:_id', status: 404 }))
   
   const port = process.env.PORT || 3000
   app.listen(port, () => console.log('App is listening at ' + port))
