@@ -12,6 +12,6 @@
 ## Endpoints
 1. `get /heart` gives you list of all the records stored and sorted by time.
 
-2. `get /heart/:_id` gives you a specfic record with `_id = _id`.
+2. `get /heart/:_id` gives you a specfic record with `record._id = url._id`.
 
-3. `post /heart` creates a new recored with following data `( time: Date, rate: Number ).
+3. `post /heart` creates a new recored with following data `( time: Date, rate: Number )`.
